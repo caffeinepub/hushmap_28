@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Building the SK Selling Clothes web app (clothes-selling e-commerce site) with buyer/seller/admin roles using a shared login system, seller+product approval workflow, cart/checkout, online payments (UPI+card) and cash on delivery, product upload, and an admin dashboard; user now wants all previously mentioned storefront features added (product pages, images, variants, orders, seller panel).",
+  "architectural_notes": [
+    "Web app confirmed (not Play Store native app).",
+    "Single shared login system for Buyer/Seller/Admin roles.",
+    "Seller onboarding and product publishing require admin approval.",
+    "Payments: online (UPI + card) plus offline via Cash on Delivery (COD)."
+  ],
+  "known_issues": [
+    "User reports current Version 1 is confusing/does not look like the expected clothes-selling website; missing expected storefront features."
+  ],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Minimal fashion store wordmark logo with clean typography (sk-clothes-logo.dim_512x192.png)\n- Soft fabric texture hero banner background, neutral tones (hero-fabric.dim_1600x600.png)\n- Simple placeholder product photo illustration (placeholder-product.dim_800x800.png)",
+  "existing_features": [
+    {
+      "id": "feature-replace-the-current-map-ratings-product-hushmap-leaflet-ui-and-related-flows-with-an-sk-clothes-e-commerce-storefront-experience-so-the-default-navigation-and-screens-clearly-look-and-behave-like-a-clothes-selling-website",
+      "title": "Replace the current map/ratings product (HushMap/Leaflet UI and related flows) with an SK Clothes e-commerce storefront experience, so the default navigation and screens clearly look and behave like a clothes-selling website.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-single-internet-identity-login-that-supports-three-roles-buyer-seller-admin-using-the-same-login-entrypoint-and-store-each-user-s-role-in-the-backend-profile-so-the-ui-can-show-role-based-navigation-and-screens",
+      "title": "Implement a single Internet Identity login that supports three roles (buyer, seller, admin) using the same login entrypoint, and store each user’s role in the backend profile so the UI can show role-based navigation and screens.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-customer-facing-storefront-pages-a-product-catalog-page-with-search-filter-sort-basics-and-a-product-detail-page-showing-product-photos-price-available-sizes-colors-description-and-stock-availability-indicators",
+      "title": "Add customer-facing storefront pages: a product catalog page with search/filter/sort basics, and a product detail page showing product photos, price, available sizes/colors, description, and stock/availability indicators.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-support-product-media-upload-and-display-allow-sellers-to-upload-multiple-product-images-store-them-in-the-backend-with-reasonable-validation-limits-and-render-them-on-catalog-and-product-pages",
+      "title": "Support product media upload and display: allow sellers to upload multiple product images, store them in the backend with reasonable validation limits, and render them on catalog and product pages.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-product-attributes-variants-for-clothing-including-size-and-color-selection-and-variant-aware-pricing-and-stock-where-applicable",
+      "title": "Implement product attributes/variants for clothing, including size and color selection and variant-aware pricing and stock where applicable.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-cart-checkout-order-confirmation-flow-for-buyers-including-cart-management-add-remove-update-quantity-shipping-contact-fields-payment-method-selection-upi-card-cash-on-delivery-and-order-placement",
+      "title": "Implement cart → checkout → order confirmation flow for buyers, including cart management (add/remove/update quantity), shipping/contact fields, payment method selection (UPI, card, cash on delivery), and order placement.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-order-management-ui-buyers-can-view-their-order-history-and-order-detail-pages-sellers-can-view-orders-containing-their-products-admins-can-view-all-orders-and-update-order-statuses",
+      "title": "Add order management UI: buyers can view their order history and order detail pages; sellers can view orders containing their products; admins can view all orders and update order statuses.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-seller-panel-where-sellers-can-submit-new-products-and-manage-their-own-products-and-implement-an-admin-approval-workflow-so-submitted-products-are-not-visible-to-buyers-until-approved-by-an-admin",
+      "title": "Create a seller panel where sellers can submit new products and manage their own products, and implement an admin approval workflow so submitted products are not visible to buyers until approved by an admin.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-user-facing-text-and-branding-across-the-app-to-be-consistent-with-an-sk-clothes-store-titles-headers-dialogs-buttons-and-remove-any-hushmap-specific-wording-e-g-quiet-corner-wifi-ratings",
+      "title": "Update user-facing text and branding across the app to be consistent with an SK clothes store (titles, headers, dialogs, buttons), and remove any HushMap-specific wording (e.g., quiet corner, WiFi, ratings).",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-coherent-distinctive-visual-theme-appropriate-for-a-fashion-clothing-storefront-consistent-colors-typography-spacing-and-components-across-landing-catalog-product-detail-cart-checkout-seller-panel-and-admin-dashboard",
+      "title": "Apply a coherent, distinctive visual theme appropriate for a fashion/clothing storefront (consistent colors, typography, spacing, and components) across landing, catalog, product detail, cart, checkout, seller panel, and admin dashboard.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Add customer-facing product catalog and product detail pages (storefront)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Add product media upload/display (product photos)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Add product attributes/variants (price, size, color) shown on product pages",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Add order flow and order management UI (cart → checkout → order confirmation/history)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Add seller panel UI for sellers to submit products (subject to admin approval)",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "projectName": "SK Selling Clothes",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

@@ -1,0 +1,214 @@
+{
+  "kind": "build_request",
+  "title": "Convert current app into SK Clothes e-commerce site with buyer/seller/admin roles, product catalog, cart/checkout, orders, seller panel, and admin approvals",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Replace the current map/ratings product (HushMap/Leaflet UI and related flows) with an SK Clothes e-commerce storefront experience, so the default navigation and screens clearly look and behave like a clothes-selling website.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Maine sk clothes selling website banane bola tha aapne ye kya bana diya",
+          "Aapne jo jo bola hai sab kar do add usme"
+        ]
+      },
+      "acceptanceCriteria": [
+        "When not logged in, the landing page branding and copy are for an SK Clothes store (not HushMap) and do not reference maps, cafes, WiFi, or ratings.",
+        "When logged in, the primary app content is a storefront (catalog/products/cart/orders) and not a map UI.",
+        "Leaflet/map UI is no longer shown anywhere in the normal user flow."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement a single Internet Identity login that supports three roles (buyer, seller, admin) using the same login entrypoint, and store each user’s role in the backend profile so the UI can show role-based navigation and screens.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "aapne confirm kar diya ki teeno roles ek hi login system se login karenge"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Users authenticate via Internet Identity (no third-party auth providers).",
+        "Backend persists a user profile that includes at minimum: display name and role (buyer/seller/admin).",
+        "After login, the UI shows different navigation options depending on the stored role (e.g., seller/admin dashboards are hidden for buyers)."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Add customer-facing storefront pages: a product catalog page with search/filter/sort basics, and a product detail page showing product photos, price, available sizes/colors, description, and stock/availability indicators.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Products ka page?",
+          "Price, size, color?"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Catalog page lists products with at least: thumbnail image, name, price, and an availability/approval indicator (approved products visible to buyers only).",
+        "Product detail page shows an image gallery (or primary image + thumbnails), name, price, description, and selectable size/color options when available.",
+        "Only admin-approved products are visible in buyer-facing catalog/detail pages."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Support product media upload and display: allow sellers to upload multiple product images, store them in the backend with reasonable validation limits, and render them on catalog and product pages.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Photos upload karne ka option?"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Seller product creation/edit form supports selecting and uploading at least 1 image (multiple preferred).",
+        "Backend validates image payload size and rejects overly large uploads with a clear error message.",
+        "Uploaded images can be fetched and displayed reliably on the product detail page after refresh."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Implement product attributes/variants for clothing, including size and color selection and variant-aware pricing and stock where applicable.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Price, size, color?"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A product can define available sizes and colors (at minimum as lists; optionally as variant combinations).",
+        "Buyer must select required attributes (e.g., size/color) before adding to cart when the product defines them.",
+        "Cart line items retain the selected size/color and display them in cart and order history."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Implement cart → checkout → order confirmation flow for buyers, including cart management (add/remove/update quantity), shipping/contact fields, payment method selection (UPI, card, cash on delivery), and order placement.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Cart aur order system?",
+          "online payments (UPI+card) and cash on delivery"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Buyers can add products to a cart, update quantities, and remove items.",
+        "Checkout collects basic buyer details (e.g., name, phone, address) and validates required fields.",
+        "Buyer can select a payment method: UPI, Card, or Cash on Delivery (payment handling can be recorded as method + status without external gateway integration).",
+        "Placing an order creates a persisted order record and shows an order confirmation screen with an order ID and summary."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Add order management UI: buyers can view their order history and order detail pages; sellers can view orders containing their products; admins can view all orders and update order statuses.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "order system?",
+          "Seller panel?"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Buyer sees a list of their orders (most recent first) and can open an order detail view.",
+        "Seller sees only orders that include the seller’s products, with line item breakdown.",
+        "Admin can update order status (e.g., Pending, Confirmed, Shipped, Delivered, Cancelled) and updates persist and reflect in buyer/seller views."
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Create a seller panel where sellers can submit new products and manage their own products, and implement an admin approval workflow so submitted products are not visible to buyers until approved by an admin.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Seller panel?",
+          "seller+product approval workflow"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Seller dashboard includes: create product, edit product, view product submission status (e.g., Draft/Submitted/Approved/Rejected).",
+        "Admin dashboard includes: list of submitted products awaiting approval, approve/reject actions, and optional rejection reason stored and shown to seller.",
+        "Buyer catalog only shows products with Approved status."
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Update user-facing text and branding across the app to be consistent with an SK clothes store (titles, headers, dialogs, buttons), and remove any HushMap-specific wording (e.g., quiet corner, WiFi, ratings).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Maine sk clothes selling website banane bola tha aapne ye kya bana diya",
+          "Isme kuch samjh nhi aa raha mujhe"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Browser title and visible header branding are updated from “HushMap” to SK Clothes branding.",
+        "Profile setup and menus use store-appropriate wording (e.g., “Welcome to SK Clothes”).",
+        "No buyer-facing screens reference maps/locations/ratings/WiFi/noise."
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Apply a coherent, distinctive visual theme appropriate for a fashion/clothing storefront (consistent colors, typography, spacing, and components) across landing, catalog, product detail, cart, checkout, seller panel, and admin dashboard.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Aapne jo jo bola hai sab kar do add usme"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All core pages share a consistent theme (buttons, cards, headings, forms, spacing) and look like a retail storefront.",
+        "Theme avoids a blue/purple-dominant palette unless explicitly required (not required here).",
+        "UI is understandable without prior explanation: navigation clearly exposes Catalog, Cart, Orders, and role dashboards when applicable."
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must remain a single Motoko actor in backend/main.mo (no additional backend services).",
+    "Do not edit files under frontend/src/components/ui or any frontend immutable paths listed in SYSTEM_CONTEXT; compose existing UI components instead.",
+    "Authentication must use Internet Identity only.",
+    "No external databases or third-party auth providers."
+  ],
+  "nonGoals": [
+    "Integrating real payment gateways for UPI/cards (record payment method and status only, without external processing).",
+    "Shipping carrier integrations, tracking APIs, SMS/email notifications, push notifications.",
+    "Real-time features (e.g., live order updates via WebSockets).",
+    "Marketplace features not requested (e.g., reviews/ratings for products, coupons, multi-currency)."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Minimal fashion store wordmark logo with clean typography (sk-clothes-logo.dim_512x192.png)",
+      "Soft fabric texture hero banner background, neutral tones (hero-fabric.dim_1600x600.png)",
+      "Simple placeholder product photo illustration (placeholder-product.dim_800x800.png)"
+    ],
+    "edits": []
+  }
+}

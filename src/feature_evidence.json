@@ -1,0 +1,242 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-replace-the-current-map-ratings-product-hushmap-leaflet-ui-and-related-flows-with-an-sk-clothes-e-commerce-storefront-experience-so-the-default-navigation-and-screens-clearly-look-and-behave-like-a-clothes-selling-website",
+      "featureTitle": "Replace the current map/ratings product (HushMap/Leaflet UI and related flows) with an SK Clothes e-commerce storefront experience, so the default navigation and screens clearly look and behave like a clothes-selling website.",
+      "files": [
+        "frontend/index.html",
+        "frontend/src/App.tsx",
+        "frontend/src/components/MapHeader.tsx",
+        "frontend/src/components/MapView.tsx",
+        "frontend/src/hooks/useMap.ts",
+        "frontend/src/types/leaflet.d.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "build-template-react@1.0.0",
+        "shadcn-ui@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0",
+        "blob-storage@4.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-single-internet-identity-login-that-supports-three-roles-buyer-seller-admin-using-the-same-login-entrypoint-and-store-each-user-s-role-in-the-backend-profile-so-the-ui-can-show-role-based-navigation-and-screens",
+      "featureTitle": "Implement a single Internet Identity login that supports three roles (buyer, seller, admin) using the same login entrypoint, and store each user’s role in the backend profile so the UI can show role-based navigation and screens.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/ProfileSetupDialog.tsx",
+        "frontend/src/hooks/useQueries.ts",
+        "frontend/src/hooks/useUserProfile.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "build-template-react@1.0.0",
+        "shadcn-ui@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0",
+        "blob-storage@4.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-customer-facing-storefront-pages-a-product-catalog-page-with-search-filter-sort-basics-and-a-product-detail-page-showing-product-photos-price-available-sizes-colors-description-and-stock-availability-indicators",
+      "featureTitle": "Add customer-facing storefront pages: a product catalog page with search/filter/sort basics, and a product detail page showing product photos, price, available sizes/colors, description, and stock/availability indicators.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/ProductCard.tsx",
+        "frontend/src/hooks/useProducts.ts",
+        "frontend/src/pages/CatalogPage.tsx",
+        "frontend/src/pages/ProductDetailPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "build-template-react@1.0.0",
+        "shadcn-ui@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0",
+        "blob-storage@4.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-support-product-media-upload-and-display-allow-sellers-to-upload-multiple-product-images-store-them-in-the-backend-with-reasonable-validation-limits-and-render-them-on-catalog-and-product-pages",
+      "featureTitle": "Support product media upload and display: allow sellers to upload multiple product images, store them in the backend with reasonable validation limits, and render them on catalog and product pages.",
+      "files": [
+        "frontend/src/components/ProductImageUploader.tsx",
+        "frontend/src/pages/ProductDetailPage.tsx",
+        "frontend/src/pages/SellerProductFormPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "build-template-react@1.0.0",
+        "shadcn-ui@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0",
+        "blob-storage@4.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-product-attributes-variants-for-clothing-including-size-and-color-selection-and-variant-aware-pricing-and-stock-where-applicable",
+      "featureTitle": "Implement product attributes/variants for clothing, including size and color selection and variant-aware pricing and stock where applicable.",
+      "files": [
+        "frontend/src/components/VariantSelector.tsx",
+        "frontend/src/pages/CartPage.tsx",
+        "frontend/src/pages/OrderDetailPage.tsx",
+        "frontend/src/pages/OrdersPage.tsx",
+        "frontend/src/pages/ProductDetailPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "build-template-react@1.0.0",
+        "shadcn-ui@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0",
+        "blob-storage@4.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-cart-checkout-order-confirmation-flow-for-buyers-including-cart-management-add-remove-update-quantity-shipping-contact-fields-payment-method-selection-upi-card-cash-on-delivery-and-order-placement",
+      "featureTitle": "Implement cart → checkout → order confirmation flow for buyers, including cart management (add/remove/update quantity), shipping/contact fields, payment method selection (UPI, card, cash on delivery), and order placement.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/hooks/useCart.ts",
+        "frontend/src/hooks/useOrders.ts",
+        "frontend/src/pages/CartPage.tsx",
+        "frontend/src/pages/CheckoutPage.tsx",
+        "frontend/src/pages/OrderConfirmationPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "build-template-react@1.0.0",
+        "shadcn-ui@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0",
+        "blob-storage@4.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-order-management-ui-buyers-can-view-their-order-history-and-order-detail-pages-sellers-can-view-orders-containing-their-products-admins-can-view-all-orders-and-update-order-statuses",
+      "featureTitle": "Add order management UI: buyers can view their order history and order detail pages; sellers can view orders containing their products; admins can view all orders and update order statuses.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/hooks/useOrders.ts",
+        "frontend/src/pages/AdminOrdersPage.tsx",
+        "frontend/src/pages/OrdersPage.tsx",
+        "frontend/src/pages/SellerOrdersPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "build-template-react@1.0.0",
+        "shadcn-ui@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0",
+        "blob-storage@4.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-a-seller-panel-where-sellers-can-submit-new-products-and-manage-their-own-products-and-implement-an-admin-approval-workflow-so-submitted-products-are-not-visible-to-buyers-until-approved-by-an-admin",
+      "featureTitle": "Create a seller panel where sellers can submit new products and manage their own products, and implement an admin approval workflow so submitted products are not visible to buyers until approved by an admin.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/hooks/useAdminProducts.ts",
+        "frontend/src/hooks/useSellerProducts.ts",
+        "frontend/src/pages/AdminDashboardPage.tsx",
+        "frontend/src/pages/CatalogPage.tsx",
+        "frontend/src/pages/SellerDashboardPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "build-template-react@1.0.0",
+        "shadcn-ui@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0",
+        "blob-storage@4.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-user-facing-text-and-branding-across-the-app-to-be-consistent-with-an-sk-clothes-store-titles-headers-dialogs-buttons-and-remove-any-hushmap-specific-wording-e-g-quiet-corner-wifi-ratings",
+      "featureTitle": "Update user-facing text and branding across the app to be consistent with an SK clothes store (titles, headers, dialogs, buttons), and remove any HushMap-specific wording (e.g., quiet corner, WiFi, ratings).",
+      "files": [
+        "frontend/index.html",
+        "frontend/src/App.tsx",
+        "frontend/src/components/ProfileSetupDialog.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "build-template-react@1.0.0",
+        "shadcn-ui@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0",
+        "blob-storage@4.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-a-coherent-distinctive-visual-theme-appropriate-for-a-fashion-clothing-storefront-consistent-colors-typography-spacing-and-components-across-landing-catalog-product-detail-cart-checkout-seller-panel-and-admin-dashboard",
+      "featureTitle": "Apply a coherent, distinctive visual theme appropriate for a fashion/clothing storefront (consistent colors, typography, spacing, and components) across landing, catalog, product detail, cart, checkout, seller panel, and admin dashboard.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/StoreLayout.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "build-template-react@1.0.0",
+        "shadcn-ui@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0",
+        "blob-storage@4.0.0"
+      ],
+      "testIds": [
+        "REQ-10"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

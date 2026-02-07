@@ -1,0 +1,9 @@
+{
+  "frontend/src/pages/SellerOrdersPage.tsx": "Displays orders containing the seller's products with item details and status badges.",
+  "frontend/src/pages/AdminDashboardPage.tsx": "Admin interface for reviewing and approving/rejecting pending product submissions with product details and images.",
+  "frontend/src/pages/AdminOrdersPage.tsx": "Admin order management page with status update controls and order details display.",
+  "frontend/src/components/ProfileSetupDialog.tsx": "Profile setup dialog for new users to enter name, email, phone, and select buyer/seller role using proper enum values.",
+  "frontend/src/pages/CheckoutPage.tsx": "Checkout form collecting shipping information and payment method selection using proper enum values for payment methods.",
+  "frontend/src/hooks/useQueries.ts": "Empty placeholder file kept for backward compatibility; all queries moved to feature-specific hooks.",
+  "frontend/src/components/EditNameDialog.tsx": "Dialog component for editing user profile name, using the correct import from useUserProfile hook."
+}

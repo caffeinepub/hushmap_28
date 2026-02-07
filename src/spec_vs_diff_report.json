@@ -1,0 +1,100 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-06T21:15:52.657Z",
+  "summary": "Diff largely implements an SK Clothes storefront with II auth, role-based navigation, catalog/product detail, cart/checkout/order flows, seller/admin panels, and a new warm-neutral theme. Some acceptance criteria are not clearly satisfied from the provided diff summary (notably catalog filtering/sorting indicators, buyer-only visibility for approved products, and optional rejection reason). Also, an unrequested secret-token-based admin initialization mechanism appears to have been added/retained.",
+  "missing_requirements": [
+    {
+      "id": "REQ-3",
+      "requirement": "Catalog page includes search/filter/sort basics and shows an availability/approval indicator; approved products visible to buyers only.",
+      "reason": "Catalog implements search but no filter/sort is evident. ProductCard shows stock status but does not show approval status. It is also unclear that buyer-facing catalog/detail only return admin-approved products because the frontend calls getAllProducts/getProduct without any visible approval filtering in the UI, and backend behavior is not shown in the truncated diff.",
+      "evidence": [
+        "frontend/src/pages/CatalogPage.tsx",
+        "frontend/src/components/ProductCard.tsx",
+        "frontend/src/hooks/useProducts.ts",
+        "frontend/src/pages/ProductDetailPage.tsx",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "requirement": "Admin approval workflow includes optional rejection reason stored and shown to seller.",
+      "reason": "Admin UI shows approve/reject actions but there is no evidence of capturing/storing a rejection reason or displaying it back to the seller.",
+      "evidence": [
+        "frontend/src/pages/AdminDashboardPage.tsx",
+        "frontend/src/hooks/useAdminProducts.ts",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "Backend validates image payload size and rejects overly large uploads with a clear error message.",
+      "reason": "Frontend validates images (2MB) before creating ExternalBlob, but backend-side size validation/error message is not visible in the truncated backend diff. Requirement specifically calls for backend validation.",
+      "evidence": [
+        "frontend/src/components/ProductImageUploader.tsx",
+        "backend/main.mo"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Secret URL parameter used to initialize access control / admin capabilities (\"caffeineAdminToken\").",
+      "reason": "BuildRequest requires Internet Identity only and does not mention any secret-token initialization mechanism via URL params; this appears to add an out-of-scope auth/privilege path.",
+      "evidence": [
+        "frontend/src/hooks/useActor.ts"
+      ]
+    },
+    {
+      "description": "Legacy HushMap/cafe/wifi/noise/rating migration scaffolding retained in a new migration module.",
+      "reason": "BuildRequest focuses on converting to an e-commerce storefront; retaining and migrating legacy map/ratings domain types is not requested (even if useful for data migration).",
+      "evidence": [
+        "backend/migration.mo"
+      ]
+    }
+  ],
+  "confidence": 0.64,
+  "changed_files": [
+    "backend/main.mo",
+    "backend/migration.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/EditNameDialog.tsx",
+    "frontend/src/components/MapHeader.tsx",
+    "frontend/src/components/MapView.tsx",
+    "frontend/src/components/ProductCard.tsx",
+    "frontend/src/components/ProductImageUploader.tsx",
+    "frontend/src/components/ProfileSetupDialog.tsx",
+    "frontend/src/components/ReviewsDialog.tsx",
+    "frontend/src/components/StoreLayout.tsx",
+    "frontend/src/components/VariantSelector.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useAdminProducts.ts",
+    "frontend/src/hooks/useCart.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useMap.ts",
+    "frontend/src/hooks/useOrders.ts",
+    "frontend/src/hooks/useProducts.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/hooks/useSellerProducts.ts",
+    "frontend/src/hooks/useUserProfile.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/AdminDashboardPage.tsx",
+    "frontend/src/pages/AdminOrdersPage.tsx",
+    "frontend/src/pages/CartPage.tsx",
+    "frontend/src/pages/CatalogPage.tsx",
+    "frontend/src/pages/CheckoutPage.tsx",
+    "frontend/src/pages/OrderConfirmationPage.tsx",
+    "frontend/src/pages/OrderDetailPage.tsx",
+    "frontend/src/pages/OrdersPage.tsx",
+    "frontend/src/pages/ProductDetailPage.tsx",
+    "frontend/src/pages/SellerDashboardPage.tsx",
+    "frontend/src/pages/SellerOrdersPage.tsx",
+    "frontend/src/pages/SellerProductFormPage.tsx",
+    "frontend/src/types/leaflet.d.ts",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

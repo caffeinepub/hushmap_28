@@ -1,0 +1,378 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "SK Clothes e-commerce storefront (roles, catalog, cart/checkout, orders, seller/admin dashboards)",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Replace the existing map/ratings experience with an SK Clothes storefront and remove Leaflet/map UI from normal flows.",
+      "acceptanceCriteria": [
+        "When not logged in, the landing page branding and copy are for an SK Clothes store (not HushMap) and do not reference maps, cafes, WiFi, or ratings.",
+        "When logged in, the primary app content is a storefront (catalog/products/cart/orders) and not a map UI.",
+        "Leaflet/map UI is no longer shown anywhere in the normal user flow."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/index.html",
+          "operation": "modify",
+          "description": "Remove Leaflet CSS/JS includes and any map-specific head/body includes; keep only the React mount and required fonts for the storefront."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Replace authenticated rendering of MapView with storefront layout + navigation + pages (catalog/product/cart/orders/dashboards) and remove any map-based landing content."
+        },
+        {
+          "path": "frontend/src/components/MapView.tsx",
+          "operation": "delete",
+          "description": "Delete the Leaflet map view implementation so it cannot appear in normal user flows."
+        },
+        {
+          "path": "frontend/src/components/MapHeader.tsx",
+          "operation": "delete",
+          "description": "Delete the map-specific header (HushMap branding and map-only menu) to avoid map UI reappearing."
+        },
+        {
+          "path": "frontend/src/hooks/useMap.ts",
+          "operation": "delete",
+          "description": "Remove the Leaflet map hook used for map initialization and controls."
+        },
+        {
+          "path": "frontend/src/types/leaflet.d.ts",
+          "operation": "delete",
+          "description": "Remove Leaflet type definitions since Leaflet is no longer part of the app."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Use a single Internet Identity login and support buyer/seller/admin roles with role-based navigation based on the stored backend profile.",
+      "acceptanceCriteria": [
+        "Users authenticate via Internet Identity (no third-party auth providers).",
+        "Backend persists a user profile that includes at minimum: display name and role (buyer/seller/admin).",
+        "After login, the UI shows different navigation options depending on the stored role (e.g., seller/admin dashboards are hidden for buyers)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ProfileSetupDialog.tsx",
+          "operation": "modify",
+          "description": "Extend the profile setup to collect display name plus role (buyer/seller/admin), and save via backend profile; update wording to SK Clothes. Use the authorization component guidance for profile-setup modal timing; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "delete",
+          "description": "Remove map/OSM/location query hooks and replace with storefront-specific queries in new dedicated hooks files."
+        },
+        {
+          "path": "frontend/src/hooks/useUserProfile.ts",
+          "operation": "create",
+          "description": "Create React Query hooks to load/save the caller user profile (name + role) and to load the caller authorization role/admin status as needed for guards. Use the authorization component guidance for query enabling to prevent profile setup modal flash; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/RoleGuard.tsx",
+          "operation": "create",
+          "description": "Add a small guard wrapper that conditionally renders children or an access-denied state based on stored profile role (buyer/seller/admin) and/or backend admin checks. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/StoreNav.tsx",
+          "operation": "create",
+          "description": "Create a top navigation component that shows/hides menu items based on the stored user profile role (e.g., Catalog/Cart/Orders for buyers; Seller Panel for sellers; Admin Dashboard for admins)."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the single Internet Identity login entrypoint, load the stored profile on login, and render role-based navigation + pages. Ensure logout clears cached queries/data per authorization frontend guidance; verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Add customer-facing catalog and product detail pages with search/filter/sort basics and full product detail rendering.",
+      "acceptanceCriteria": [
+        "Catalog page lists products with at least: thumbnail image, name, price, and an availability/approval indicator (approved products visible to buyers only).",
+        "Product detail page shows an image gallery (or primary image + thumbnails), name, price, description, and selectable size/color options when available.",
+        "Only admin-approved products are visible in buyer-facing catalog/detail pages."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useProducts.ts",
+          "operation": "create",
+          "description": "Create product query hooks for catalog and product detail that call backend capabilities (getAllProducts/getProduct) and support buyer-only filtering to Approved status."
+        },
+        {
+          "path": "frontend/src/pages/CatalogPage.tsx",
+          "operation": "create",
+          "description": "Implement a catalog page with search/filter/sort basics and product cards (thumbnail, name, price, approval/availability indicator). Use placeholder image when needed from frontend/public/assets/generated/placeholder-product.dim_800x800.png."
+        },
+        {
+          "path": "frontend/src/pages/ProductDetailPage.tsx",
+          "operation": "create",
+          "description": "Implement a product detail page that renders image gallery, name, price, description, stock/availability, and size/color selection when present."
+        },
+        {
+          "path": "frontend/src/components/ProductCard.tsx",
+          "operation": "create",
+          "description": "Create a reusable product card component for the catalog grid, including thumbnail rendering via ExternalBlob direct URL when available (fallback to frontend/public/assets/generated/placeholder-product.dim_800x800.png). Verify the blob-storage component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire catalog and product detail pages into the app navigation/routing state so they are reachable (no orphan pages)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Enable sellers to upload and manage multiple product images and render uploaded images reliably throughout the storefront.",
+      "acceptanceCriteria": [
+        "Seller product creation/edit form supports selecting and uploading at least 1 image (multiple preferred).",
+        "Backend validates image payload size and rejects overly large uploads with a clear error message.",
+        "Uploaded images can be fetched and displayed reliably on the product detail page after refresh."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ProductImageUploader.tsx",
+          "operation": "create",
+          "description": "Create a multi-image uploader that converts selected files to ExternalBlob objects, supports progress, and enforces reasonable client-side limits with clear validation errors. Use blob-storage ExternalBlob APIs; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/SellerProductFormPage.tsx",
+          "operation": "create",
+          "description": "Create seller product create/edit form that includes the ProductImageUploader, displays selected image previews, and submits ProductInput with images to backend capabilities (submitProduct/updateProduct). Verify the blob-storage component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/ProductDetailPage.tsx",
+          "operation": "modify",
+          "description": "Render uploaded images using ExternalBlob.getDirectURL so images persist and display after refresh; fall back to frontend/public/assets/generated/placeholder-product.dim_800x800.png when no images exist. Verify the blob-storage component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Support clothing variants (size/color), require selection before add-to-cart when applicable, and display variant selections in cart and orders.",
+      "acceptanceCriteria": [
+        "A product can define available sizes and colors (at minimum as lists; optionally as variant combinations).",
+        "Buyer must select required attributes (e.g., size/color) before adding to cart when the product defines them.",
+        "Cart line items retain the selected size/color and display them in cart and order history."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/VariantSelector.tsx",
+          "operation": "create",
+          "description": "Create a variant selector UI to choose size/color (based on available variants) and compute/select a variantIndex required for cart actions."
+        },
+        {
+          "path": "frontend/src/pages/ProductDetailPage.tsx",
+          "operation": "modify",
+          "description": "Integrate VariantSelector and prevent add-to-cart until required variant attributes are selected; show stock/price based on selected variant when applicable."
+        },
+        {
+          "path": "frontend/src/pages/CartPage.tsx",
+          "operation": "create",
+          "description": "Display cart line items including selected size/color (resolved from product variantIndex) and allow quantity adjustments/removals."
+        },
+        {
+          "path": "frontend/src/pages/OrdersPage.tsx",
+          "operation": "create",
+          "description": "List buyer orders and show per-item variant selections (size/color) in the list summaries."
+        },
+        {
+          "path": "frontend/src/pages/OrderDetailPage.tsx",
+          "operation": "create",
+          "description": "Render order detail with line item variant size/color values and totals."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Implement buyer cart → checkout → order confirmation flow with shipping/contact fields and payment method selection (recorded only).",
+      "acceptanceCriteria": [
+        "Buyers can add products to a cart, update quantities, and remove items.",
+        "Checkout collects basic buyer details (e.g., name, phone, address) and validates required fields.",
+        "Buyer can select a payment method: UPI, Card, or Cash on Delivery (payment handling can be recorded as method + status without external gateway integration).",
+        "Placing an order creates a persisted order record and shows an order confirmation screen with an order ID and summary."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useCart.ts",
+          "operation": "create",
+          "description": "Create cart hooks to load cart and perform add/update/remove/clear actions via backend capabilities, with React Query invalidation."
+        },
+        {
+          "path": "frontend/src/hooks/useOrders.ts",
+          "operation": "create",
+          "description": "Create order hooks for placing orders and fetching buyer orders/order detail via backend capabilities."
+        },
+        {
+          "path": "frontend/src/pages/CartPage.tsx",
+          "operation": "modify",
+          "description": "Wire cart management UI to backend cart capabilities (add/remove/update quantity) and provide a clear path to checkout."
+        },
+        {
+          "path": "frontend/src/pages/CheckoutPage.tsx",
+          "operation": "create",
+          "description": "Implement checkout form for shipping/contact info with required-field validation and payment method selection (UPI/Card/Cash on Delivery) recorded for the order."
+        },
+        {
+          "path": "frontend/src/pages/OrderConfirmationPage.tsx",
+          "operation": "create",
+          "description": "Show order confirmation with created order ID and summary after successful order placement; include failure/error state messaging for rejected/failed placement."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire Cart, Checkout, and Order Confirmation pages into navigation/routing state so users can complete the full flow."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Add order management UI for buyers, sellers, and admins, including admin status updates reflected across views.",
+      "acceptanceCriteria": [
+        "Buyer sees a list of their orders (most recent first) and can open an order detail view.",
+        "Seller sees only orders that include the seller’s products, with line item breakdown.",
+        "Admin can update order status (e.g., Pending, Confirmed, Shipped, Delivered, Cancelled) and updates persist and reflect in buyer/seller views."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/OrdersPage.tsx",
+          "operation": "modify",
+          "description": "Ensure buyer order history is most-recent-first and links into OrderDetailPage; show status prominently."
+        },
+        {
+          "path": "frontend/src/pages/SellerOrdersPage.tsx",
+          "operation": "create",
+          "description": "Create a seller orders view that calls backend seller orders capability and renders only orders containing the seller’s products with line-item breakdown."
+        },
+        {
+          "path": "frontend/src/pages/AdminOrdersPage.tsx",
+          "operation": "create",
+          "description": "Create an admin orders view that loads all orders and allows updating order status (Pending/Confirmed/Shipped/Delivered/Cancelled) via backend capability."
+        },
+        {
+          "path": "frontend/src/hooks/useOrders.ts",
+          "operation": "modify",
+          "description": "Add hooks for seller/admin order retrieval and admin order status updates with cache invalidation so updates reflect in buyer/seller views."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire seller/admin order pages into role-based navigation with guards so buyers cannot access seller/admin views."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Create a seller panel for product submission/management and an admin approval workflow controlling buyer visibility.",
+      "acceptanceCriteria": [
+        "Seller dashboard includes: create product, edit product, view product submission status (e.g., Draft/Submitted/Approved/Rejected).",
+        "Admin dashboard includes: list of submitted products awaiting approval, approve/reject actions, and optional rejection reason stored and shown to seller.",
+        "Buyer catalog only shows products with Approved status."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/SellerDashboardPage.tsx",
+          "operation": "create",
+          "description": "Implement seller dashboard with product list, create product navigation, edit navigation, and visible submission status (Pending Approval/Approved/Rejected)."
+        },
+        {
+          "path": "frontend/src/hooks/useSellerProducts.ts",
+          "operation": "create",
+          "description": "Create hooks to load seller products and to submit/update products using backend capabilities (getSellerProducts/submitProduct/updateProduct)."
+        },
+        {
+          "path": "frontend/src/pages/AdminDashboardPage.tsx",
+          "operation": "create",
+          "description": "Implement admin dashboard listing pending products and providing approve/reject actions using backend capabilities; show product details and images for review. Verify the authorization component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useAdminProducts.ts",
+          "operation": "create",
+          "description": "Create hooks to load pending products and perform approve/reject actions with cache invalidation for catalog and seller lists. Verify the authorization component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/CatalogPage.tsx",
+          "operation": "modify",
+          "description": "Enforce buyer-facing visibility rules by showing only Approved products; show clear status/availability indicators where applicable for non-buyer roles."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire SellerDashboard/AdminDashboard and SellerProductFormPage into navigation with RoleGuard so only correct roles can access them."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Update all user-facing text and branding to SK Clothes and remove HushMap/map/ratings/WiFi wording.",
+      "acceptanceCriteria": [
+        "Browser title and visible header branding are updated from “HushMap” to SK Clothes branding.",
+        "Profile setup and menus use store-appropriate wording (e.g., “Welcome to SK Clothes”).",
+        "No buyer-facing screens reference maps/locations/ratings/WiFi/noise."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/index.html",
+          "operation": "modify",
+          "description": "Update document title from HushMap to SK Clothes (and keep consistent branding metadata)."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Replace landing page copy, icons, and CTAs to match a fashion storefront and remove all references to maps/quiet corners/WiFi/ratings."
+        },
+        {
+          "path": "frontend/src/components/ProfileSetupDialog.tsx",
+          "operation": "modify",
+          "description": "Update wording to SK Clothes and ensure the profile setup reflects store context (name + role) with no map-related language."
+        },
+        {
+          "path": "frontend/public/assets/generated/sk-clothes-logo.dim_512x192.png",
+          "operation": "create",
+          "description": "Add generated logo asset and ensure it is referenced by the storefront header/landing. (Wire-in required by imageRequirements.)"
+        },
+        {
+          "path": "frontend/public/assets/generated/hero-fabric.dim_1600x600.png",
+          "operation": "create",
+          "description": "Add generated hero fabric banner asset and ensure it is referenced by the landing/hero section. (Wire-in required by imageRequirements.)"
+        },
+        {
+          "path": "frontend/public/assets/generated/placeholder-product.dim_800x800.png",
+          "operation": "create",
+          "description": "Add generated placeholder product asset and ensure it is used as fallback for products with no images. (Wire-in required by imageRequirements.)"
+        }
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "summary": "Apply a cohesive fashion storefront theme across all core pages, avoiding a blue/purple-dominant palette and ensuring clear navigation.",
+      "acceptanceCriteria": [
+        "All core pages share a consistent theme (buttons, cards, headings, forms, spacing) and look like a retail storefront.",
+        "Theme avoids a blue/purple-dominant palette unless explicitly required (not required here).",
+        "UI is understandable without prior explanation: navigation clearly exposes Catalog, Cart, Orders, and role dashboards when applicable."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Update CSS variables (colors, radius, shadows, typography choices) to a neutral fashion storefront theme; remove Leaflet z-index overrides that are no longer relevant."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Adjust Tailwind theme extensions as needed to support the updated storefront design tokens (still driven by CSS variables)."
+        },
+        {
+          "path": "frontend/src/components/StoreLayout.tsx",
+          "operation": "create",
+          "description": "Create a shared layout (header/logo/nav + main container + footer) used by landing, catalog, product detail, cart, checkout, orders, seller panel, and admin dashboard for consistent look and spacing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Adopt StoreLayout across all storefront pages and ensure navigation is always visible and role-appropriate (Catalog/Cart/Orders + seller/admin destinations when applicable)."
+        }
+      ]
+    }
+  ]
+}

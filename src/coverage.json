@@ -1,0 +1,338 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-06T21:15:52.661Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 10,
+    "implemented": 10,
+    "items": [
+      {
+        "id": "REQ-1",
+        "summary": "Replace the current map/ratings product (HushMap/Leaflet UI and related flows) with an SK Clothes e-commerce storefront experience, so the default navigation and screens clearly look and behave like a clothes-selling website.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/index.html",
+          "frontend/src/App.tsx",
+          "frontend/src/components/MapView.tsx",
+          "frontend/src/components/MapHeader.tsx",
+          "frontend/src/hooks/useMap.ts",
+          "frontend/src/types/leaflet.d.ts"
+        ],
+        "matchedFiles": [
+          "frontend/index.html",
+          "frontend/src/App.tsx",
+          "frontend/src/components/MapView.tsx",
+          "frontend/src/components/MapHeader.tsx",
+          "frontend/src/hooks/useMap.ts",
+          "frontend/src/types/leaflet.d.ts"
+        ]
+      },
+      {
+        "id": "REQ-10",
+        "summary": "Apply a coherent, distinctive visual theme appropriate for a fashion/clothing storefront (consistent colors, typography, spacing, and components) across landing, catalog, product detail, cart, checkout, seller panel, and admin dashboard.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/index.css",
+          "frontend/tailwind.config.js",
+          "frontend/src/components/StoreLayout.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/index.css",
+          "frontend/tailwind.config.js",
+          "frontend/src/components/StoreLayout.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-2",
+        "summary": "Implement a single Internet Identity login that supports three roles (buyer, seller, admin) using the same login entrypoint, and store each user’s role in the backend profile so the UI can show role-based navigation and screens.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/ProfileSetupDialog.tsx",
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/hooks/useUserProfile.ts",
+          "frontend/src/components/RoleGuard.tsx",
+          "frontend/src/components/StoreNav.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/ProfileSetupDialog.tsx",
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/hooks/useUserProfile.ts",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-3",
+        "summary": "Add customer-facing storefront pages: a product catalog page with search/filter/sort basics, and a product detail page showing product photos, price, available sizes/colors, description, and stock/availability indicators.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/useProducts.ts",
+          "frontend/src/pages/CatalogPage.tsx",
+          "frontend/src/pages/ProductDetailPage.tsx",
+          "frontend/src/components/ProductCard.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/hooks/useProducts.ts",
+          "frontend/src/pages/CatalogPage.tsx",
+          "frontend/src/pages/ProductDetailPage.tsx",
+          "frontend/src/components/ProductCard.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-4",
+        "summary": "Support product media upload and display: allow sellers to upload multiple product images, store them in the backend with reasonable validation limits, and render them on catalog and product pages.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/ProductImageUploader.tsx",
+          "frontend/src/pages/SellerProductFormPage.tsx",
+          "frontend/src/pages/ProductDetailPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/ProductImageUploader.tsx",
+          "frontend/src/pages/SellerProductFormPage.tsx",
+          "frontend/src/pages/ProductDetailPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-5",
+        "summary": "Implement product attributes/variants for clothing, including size and color selection and variant-aware pricing and stock where applicable.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/VariantSelector.tsx",
+          "frontend/src/pages/ProductDetailPage.tsx",
+          "frontend/src/pages/CartPage.tsx",
+          "frontend/src/pages/OrdersPage.tsx",
+          "frontend/src/pages/OrderDetailPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/VariantSelector.tsx",
+          "frontend/src/pages/ProductDetailPage.tsx",
+          "frontend/src/pages/CartPage.tsx",
+          "frontend/src/pages/OrdersPage.tsx",
+          "frontend/src/pages/OrderDetailPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-6",
+        "summary": "Implement cart → checkout → order confirmation flow for buyers, including cart management (add/remove/update quantity), shipping/contact fields, payment method selection (UPI, card, cash on delivery), and order placement.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/useCart.ts",
+          "frontend/src/hooks/useOrders.ts",
+          "frontend/src/pages/CartPage.tsx",
+          "frontend/src/pages/CheckoutPage.tsx",
+          "frontend/src/pages/OrderConfirmationPage.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/hooks/useCart.ts",
+          "frontend/src/hooks/useOrders.ts",
+          "frontend/src/pages/CartPage.tsx",
+          "frontend/src/pages/CheckoutPage.tsx",
+          "frontend/src/pages/OrderConfirmationPage.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-7",
+        "summary": "Add order management UI: buyers can view their order history and order detail pages; sellers can view orders containing their products; admins can view all orders and update order statuses.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/OrdersPage.tsx",
+          "frontend/src/pages/SellerOrdersPage.tsx",
+          "frontend/src/pages/AdminOrdersPage.tsx",
+          "frontend/src/hooks/useOrders.ts",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/OrdersPage.tsx",
+          "frontend/src/pages/SellerOrdersPage.tsx",
+          "frontend/src/pages/AdminOrdersPage.tsx",
+          "frontend/src/hooks/useOrders.ts",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-8",
+        "summary": "Create a seller panel where sellers can submit new products and manage their own products, and implement an admin approval workflow so submitted products are not visible to buyers until approved by an admin.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/SellerDashboardPage.tsx",
+          "frontend/src/hooks/useSellerProducts.ts",
+          "frontend/src/pages/AdminDashboardPage.tsx",
+          "frontend/src/hooks/useAdminProducts.ts",
+          "frontend/src/pages/CatalogPage.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/SellerDashboardPage.tsx",
+          "frontend/src/hooks/useSellerProducts.ts",
+          "frontend/src/pages/AdminDashboardPage.tsx",
+          "frontend/src/hooks/useAdminProducts.ts",
+          "frontend/src/pages/CatalogPage.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-9",
+        "summary": "Update user-facing text and branding across the app to be consistent with an SK clothes store (titles, headers, dialogs, buttons), and remove any HushMap-specific wording (e.g., quiet corner, WiFi, ratings).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/index.html",
+          "frontend/src/App.tsx",
+          "frontend/src/components/ProfileSetupDialog.tsx",
+          "frontend/public/assets/generated/sk-clothes-logo.dim_512x192.png",
+          "frontend/public/assets/generated/hero-fabric.dim_1600x600.png",
+          "frontend/public/assets/generated/placeholder-product.dim_800x800.png"
+        ],
+        "matchedFiles": [
+          "frontend/index.html",
+          "frontend/src/App.tsx",
+          "frontend/src/components/ProfileSetupDialog.tsx",
+          "frontend/public/assets/generated/sk-clothes-logo.dim_512x192.png",
+          "frontend/public/assets/generated/hero-fabric.dim_1600x600.png",
+          "frontend/public/assets/generated/placeholder-product.dim_800x800.png"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "backend/authorization/MixinAuthorization.mo",
+    "backend/authorization/access-control.mo",
+    "backend/blob-storage/Mixin.mo",
+    "backend/blob-storage/Storage.mo",
+    "backend/main.mo",
+    "backend/migration.mo",
+    "build-request.json",
+    "build-template/Dockerfile",
+    "build-template/LICENSE",
+    "build-template/README.md",
+    "build-template/deploy.sh",
+    "build-template/icp.yaml",
+    "build-template/pnpm-lock.yaml",
+    "build-template/pnpm-workspace.yaml",
+    "build-template/scripts/prune-unused-images.js",
+    "build-template/scripts/resize-images.js",
+    "build-template/src/backend/canister.yaml",
+    "build-template/src/backend/system-idl/aaaaa-aa.did",
+    "build-template/src/frontend/canister.yaml",
+    "build-template/src/frontend/eslint-rules/no-bigint-in-query-keys.js",
+    "build-template/src/frontend/eslint-rules/require-internet-identity-provider.js",
+    "build-template/src/frontend/eslint.config.js",
+    "build-template/src/frontend/postcss.config.js",
+    "build-template/src/frontend/src/components/ui/accordion.tsx",
+    "build-template/src/frontend/src/components/ui/alert-dialog.tsx",
+    "build-template/src/frontend/src/components/ui/alert.tsx",
+    "build-template/src/frontend/src/components/ui/aspect-ratio.tsx",
+    "build-template/src/frontend/src/components/ui/avatar.tsx",
+    "build-template/src/frontend/src/components/ui/badge.tsx",
+    "build-template/src/frontend/src/components/ui/breadcrumb.tsx",
+    "build-template/src/frontend/src/components/ui/button.tsx",
+    "build-template/src/frontend/src/components/ui/calendar.tsx",
+    "build-template/src/frontend/src/components/ui/card.tsx",
+    "build-template/src/frontend/src/components/ui/carousel.tsx",
+    "build-template/src/frontend/src/components/ui/chart.tsx",
+    "build-template/src/frontend/src/components/ui/checkbox.tsx",
+    "build-template/src/frontend/src/components/ui/collapsible.tsx",
+    "build-template/src/frontend/src/components/ui/command.tsx",
+    "build-template/src/frontend/src/components/ui/context-menu.tsx",
+    "build-template/src/frontend/src/components/ui/dialog.tsx",
+    "build-template/src/frontend/src/components/ui/drawer.tsx",
+    "build-template/src/frontend/src/components/ui/dropdown-menu.tsx",
+    "build-template/src/frontend/src/components/ui/form.tsx",
+    "build-template/src/frontend/src/components/ui/hover-card.tsx",
+    "build-template/src/frontend/src/components/ui/input-otp.tsx",
+    "build-template/src/frontend/src/components/ui/input.tsx",
+    "build-template/src/frontend/src/components/ui/label.tsx",
+    "build-template/src/frontend/src/components/ui/menubar.tsx",
+    "build-template/src/frontend/src/components/ui/navigation-menu.tsx",
+    "build-template/src/frontend/src/components/ui/pagination.tsx",
+    "build-template/src/frontend/src/components/ui/popover.tsx",
+    "build-template/src/frontend/src/components/ui/progress.tsx",
+    "build-template/src/frontend/src/components/ui/radio-group.tsx",
+    "build-template/src/frontend/src/components/ui/resizable.tsx",
+    "build-template/src/frontend/src/components/ui/scroll-area.tsx",
+    "build-template/src/frontend/src/components/ui/select.tsx",
+    "build-template/src/frontend/src/components/ui/separator.tsx",
+    "build-template/src/frontend/src/components/ui/sheet.tsx",
+    "build-template/src/frontend/src/components/ui/sidebar.tsx",
+    "build-template/src/frontend/src/components/ui/skeleton.tsx",
+    "build-template/src/frontend/src/components/ui/slider.tsx",
+    "build-template/src/frontend/src/components/ui/sonner.tsx",
+    "build-template/src/frontend/src/components/ui/switch.tsx",
+    "build-template/src/frontend/src/components/ui/table.tsx",
+    "build-template/src/frontend/src/components/ui/tabs.tsx",
+    "build-template/src/frontend/src/components/ui/textarea.tsx",
+    "build-template/src/frontend/src/components/ui/toggle-group.tsx",
+    "build-template/src/frontend/src/components/ui/toggle.tsx",
+    "build-template/src/frontend/src/components/ui/tooltip.tsx",
+    "build-template/src/frontend/src/hooks/use-mobile.tsx",
+    "build-template/src/frontend/src/lib/utils.ts",
+    "build-template/src/frontend/tsconfig.json",
+    "build-template/src/frontend/vite.config.js",
+    "caffeine.lock.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/index.html",
+    "frontend/public/assets/generated/hero-fabric.dim_1600x600.png",
+    "frontend/public/assets/generated/placeholder-product.dim_800x800.png",
+    "frontend/public/assets/generated/sk-clothes-logo.dim_512x192.png",
+    "frontend/src/App.tsx",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
+    "frontend/src/components/EditNameDialog.tsx",
+    "frontend/src/components/MapHeader.tsx",
+    "frontend/src/components/MapView.tsx",
+    "frontend/src/components/ProductCard.tsx",
+    "frontend/src/components/ProductImageUploader.tsx",
+    "frontend/src/components/ProfileSetupDialog.tsx",
+    "frontend/src/components/ReviewsDialog.tsx",
+    "frontend/src/components/StoreLayout.tsx",
+    "frontend/src/components/VariantSelector.tsx",
+    "frontend/src/config.ts",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useAdminProducts.ts",
+    "frontend/src/hooks/useCart.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useMap.ts",
+    "frontend/src/hooks/useOrders.ts",
+    "frontend/src/hooks/useProducts.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/hooks/useSellerProducts.ts",
+    "frontend/src/hooks/useUserProfile.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/AdminDashboardPage.tsx",
+    "frontend/src/pages/AdminOrdersPage.tsx",
+    "frontend/src/pages/CartPage.tsx",
+    "frontend/src/pages/CatalogPage.tsx",
+    "frontend/src/pages/CheckoutPage.tsx",
+    "frontend/src/pages/OrderConfirmationPage.tsx",
+    "frontend/src/pages/OrderDetailPage.tsx",
+    "frontend/src/pages/OrdersPage.tsx",
+    "frontend/src/pages/ProductDetailPage.tsx",
+    "frontend/src/pages/SellerDashboardPage.tsx",
+    "frontend/src/pages/SellerOrdersPage.tsx",
+    "frontend/src/pages/SellerProductFormPage.tsx",
+    "frontend/src/types/leaflet.d.ts",
+    "frontend/src/ui-summary.json",
+    "frontend/src/utils/StorageClient.ts",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}
